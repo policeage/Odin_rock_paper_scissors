@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Insert Title Here</title>
+    <link type="text/css" rel="stylesheet" href="/assets/stylesheets/styles.css">
+    <script type="text/js" src="/assets/js/myScript.js"></script>
+  </head>
+
+  <body>
+    <script>
+      //the variables for player and cpu choices
+    let cpuChoice;
+    let playerChoice;
+    const choice = ["rock","paper","scissors"];
+    const regex = /rock || paper || sciccors/ig;
+    
+    //check if they want to play game
+    function gameTime() {
+      let gameConfirm = confirm("Do you want to play a game?");
+      if (gameConfirm) {
+        return getPlayerChoice();
+      } else{
+        return alert("Understandable, have a good day.")
+      }
+    }
+    //function to grab computer choice
+    function getComputerChoice() {
+    let result = choice[Math.floor(Math.random()*choice.length)];
+    console.log('CPU output:', result)
+     return cpuChoice = result;
+    }
+
+    //function to grab player choice, also changes the input to lower case
+    //for ease of comparisons
+    function getPlayerChoice() {
+      let playerSelect = prompt('Please Enter Your Choice:', "Rock, Paper, Sciccors")
+      let scrub = playerSelect.toLowerCase();
+      if (scrub !== regex) {
+      return playerChoice = scrub;
+      } else{
+        return alert("Seems like we had an issue, check your input and try again")
+      }
+    }
+    //function uses switch case for each possible itteration :^)
+    //I changed the switch cases to use how OR logic works, choosing the first true.
+    //Meaning the only time you win or lose it's because their first true was chosen in the correct order.
+    //and Tie just checks if they have the same string
+     function gameResults() {
+      const playAgainWin = confirm(`You are a winrar. You played ${playerChoice} and your opponent played ${cpuChoice} play again?`); {
+      if (playAgainWin) {
+        return getPlayerChoice();
+      } else {
+        return alert("Understandable, have a good day.")
+      }     
+    }
+    const playAgainLose = confirm(`It\'s a loss, we can\'t all be winners. You played ${playerChoice} and your opponent played ${cpuChoice} Play again?`); {
+      if (playAgainLose) {
+        return getPlayerChoice();
+      } else {
+        return alert("Understandable, have a good day.")
+      }     
+    }
+    const playAgainTie = confirm(`It\'s a tie? Now who let that happen? I\'m sure you can guess you both played ${playerChoice} Play again?`); {
+      if (playAgainTie) {
+        return getPlayerChoice();
+      } else {
+        return alert("Understandable, have a good day.")
+      }     
+    }
+      switch (true) {
+        case (playerChoice == cpuChoice):
+          return playAgainTie;
+          break;
+        case (playerChoice == (choice[0] || choice[1] || choice[2]) && cpuChoice == (choice[1] || choice[2] || choice[3])):
+          return playAgainLose;
+          break;
+        case (playerChoice == (choice[0] || choice[1] || choice[2]) && cpuChoice == (choice[2] || choice[0] || choice[1])):
+          return playAgainWin;
+          break;      
+      }
+    }
+    
+
+
+    </script>
+    
+    <!-- Header -->
+    <header>
+
+    </header>
+    <!-- Content -->
+    <section>
+
+    </section>
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+
+  </body>
+
+</html>
