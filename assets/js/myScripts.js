@@ -1,8 +1,11 @@
 let cpuChoice;
 let playerChoice;
-const choice = ["rock","paper","scissors"];
+let winCount = 0;
+let loseCount = 0;
+let tieCount = 0;
+const choice = ["ROCK","PAPER","SCISSORS"];
 
-gameTime()
+playfivegames()
 
 function gameTime() {
     let gameConfirm = confirm("Do you want to play a game?");
@@ -18,51 +21,62 @@ function gameTime() {
 }
 
 
-
 function getPlayerChoice() {
-    let playerSelect = prompt('Please Enter Your Choice:', "Rock, Paper, Sciccors")
-    let scrub = playerSelect.toLowerCase();
-    if (scrub !== choice[0] && scrub !== choice[1] && scrub !== choice[2]) {
-    return alert("Seems like we had an issue, check your input and try again")
+    let playerSelect = prompt('Please Enter Your Choice:', "Rock, Paper, Scissors");
+    playerChoice = playerSelect.toUpperCase();
+    if (playerChoice == choice[0] || playerChoice == choice[1] || playerChoice == choice[2]) {
+    return console.log('Player choice', playerChoice);
     } else {
-    let playerChoice = scrub;
-    return console.log(playerChoice);
+    return alert("Seems like we had an issue, check your input and try again");
     } 
 }  
 
 function getComputerChoice() {
-    cpuChoice = choice[Math.floor(Math.random()*choice.length)];
+    result = choice[Math.floor(Math.random()*choice.length)];
+    cpuChoice = result.toUpperCase()
     return console.log('CPU output:', cpuChoice);
 }
 
 
 function getGameResults() {
-    switch (true) {
-      case (playerChoice == cpuChoice):
-            playAgainTie = confirm(`It\'s a tie? Now who let that happen? I\'m sure you can guess you both played ${playerChoice} Play again?`); {
+    if (playerChoice == cpuChoice) {
+            let playAgainTie = confirm(`It\'s a tie? Now who let that happen? I\'m sure you can guess you both played ${playerChoice} Play again?`); {
             if (playAgainTie) {
-              return newGamePlus;
+              tieCount++;
+              console.log("Tied!");
+              return;
             } else {
-              return alert("Understandable, have a good day.");
+              alert("Understandable, have a good day.");
             }};
-        break;
-      case (playerChoice == (choice[0] || choice[1] || choice[2]) && cpuChoice == (choice[1] || choice[2] || choice[3])):
-            playAgainLose = confirm(`It\'s a loss, we can\'t all be winners. You played ${playerChoice} and your opponent played ${cpuChoice} Play again?`); {
+    } else if (playerChoice == choice[0] && cpuChoice == choice[1] || playerChoice == choice[1] && cpuChoice == choice[2] || playerChoice == choice[2] && cpuChoice == choice[0]) {
+            let playAgainLose = confirm(`It\'s a loss, we can\'t all be winners. You played ${playerChoice} and your opponent played ${cpuChoice} Play again?`); {
             if (playAgainLose) {
-              return newGamePlus;
+              loseCount++;
+              console.log("Loss!");
+              return;
             } else {
-              return alert("Understandable, have a good day.");
+              alert("Understandable, have a good day.");
             }};
-        break;
-      case (playerChoice == (choice[0] || choice[1] || choice[2]) && cpuChoice == (choice[2] || choice[0] || choice[1])):
-            playAgainWin = confirm(`You are a winrar. You played ${playerChoice} and your opponent played ${cpuChoice} play again?`); {
+    } else if (playerChoice == choice[0] && cpuChoice == choice[2] || playerChoice == choice[1] && cpuChoice == choice[0] || playerChoice == choice[2] && cpuChoice == choice[1]) {
+            let playAgainWin = confirm(`You are a winrar. You played ${playerChoice} and your opponent played ${cpuChoice} play again?`); {
             if (playAgainWin) {
-               return newGamePlus;
+              winCount++;
+              console.log("Win!");
+              return;
             } else {
-               return alert("Understandable, have a good day.");
-            }};
-        break;      
+              alert("Understandable, have a good day.");
+            }}; 
+    } else {
+        return alert("Seems like there was an issue with getting the results.")     
     }
 }
 
-let newGamePlus = gameTime()
+function playfivegames() {
+  for (let i = 0; i < 5; i++) {
+    getComputerChoice();
+    getPlayerChoice();
+    getGameResults();
+    console.log("Iteration:" + i);
+    console.log(`Wins:${winCount} Losses:${loseCount} Ties:${tieCount}`)
+    }
+}

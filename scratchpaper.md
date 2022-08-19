@@ -60,3 +60,31 @@ Turns out confirm() is a window object, maybe when I was writing it, it thought 
 Seems that removing the return fixed the issues... I checked and saw that return is effected by ASI, so it was likely all of the semicolons were messing with how the return value was read. I saw that you could fix it with parenthesis. I'm not sure if break will function the same as return or if the function will never terminate because it has no return.
 
 Basically, I messed up. I applied a return where I shouldn't have, everything is fixed. Also, on the conditionals, it turns out I was missing semicolons at the end of some of the return statements. I left the breaks in despite being unreadable because I'm not sure if the switch statements will work without them.
+
+I need to think of how getGameResults() works, because I can't return a confirm window with a boolean because of the ;. return function maybe?
+
+Seems like it's just a shortcoming of functions return having ASI and having window objects also require a ;, actually, let me see if I can just put the confirm in a (), I'm not sure. Perhaps you can, but the easier solution is just to create an arrow function or declare an actual function to output the results, could do that if you wanted to add a counter for wins and losses.
+
+I now need to debug the PlayerChoice, scrubbing the string to lower case against a RegEx doesn't seem to be working, unless the string doesn't actually appropriately handle the boolian.
+
+There was an issue with it, seemed like the CPU choice would pull a regex and be an object so there was an issue with comparing string to object, didn't want to handle with turning the object in to a string so I just changed all the choices to UpperCase and changed all the variables to always be uppercase.
+
+getGameResults() isn't working now, I think it's the switch statement, it isn't able to do any of the comparisons, however I also think there is an issue with my current boolean evaluations.
+
+Seems like the playerChoice isn't being properly stored as a global variable?
+
+I'm able to win, but having issues with losing, it runs in to the else issue
+
+Tested tie, can tie 5 times with no issues.
+
+Looking at the boolean right now on win and lose, and knowing that the or value returns the first true and the second one will choose the second first true, it should look like playerChoice == Paper && cpuChoice == Scissors, therefore it should have satisfied the loss condition.
+
+The issue with the Boolean is that I think when you go through the If Else, it'll check If is tied first, then it'll check if lose satisfies... something. Basically it should take playerchoice and compare it to the cpuchoice, the first else if statement should always be able to be satisfied, as well as the second else if statement because technically they'll always have a playerChoice value and cpuChoice value. Initially I was thinking you could just have the playerchoice always check 0 1 2and the && value of CPU Choice will always have a true value after the playerchoice value is selected.
+
+So there was an error at CPU Paper and player Scissors and another error at CPU Scissors and player Paper. the CPU and player choices are still retained.
+
+CPU Paper can beat player rock.
+CPU Rock vs Player Paper breaks the boolean.
+So at least we can lose and we can win, just some variations break the logic check despite me knowing that the logic is faulty to begin with. Actually, I think I found the issue. I'll likely have to rewrite it to check for each one of the results, smh
+
+All fixed now. Going to do the extra things now, I'll just let them float around.
